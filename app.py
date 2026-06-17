@@ -43,7 +43,7 @@ avg_monthly_spend = total / (tenure + 1)
 if st.button("Prediksi"):
 
 
-data = np.array([[
+data = np.array([
     gender,
     senior,
     partner,
@@ -64,7 +64,7 @@ data = np.array([[
     monthly,
     total,
     avg_monthly_spend
-]])
+])
 
 data[:, [4,17,18,19]] = scaler.transform(
     data[:, [4,17,18,19]]
