@@ -42,40 +42,39 @@ avg_monthly_spend = total / (tenure + 1)
 
 if st.button("Prediksi"):
 
+    data = np.array([[
+        gender,
+        senior,
+        partner,
+        dependents,
+        tenure,
+        phone,
+        multiple,
+        internet,
+        online_security,
+        online_backup,
+        device_protection,
+        tech_support,
+        streaming_tv,
+        streaming_movies,
+        contract,
+        paperless,
+        payment,
+        monthly,
+        total,
+        avg_monthly_spend
+    ]])
 
-data = np.array([
-    gender,
-    senior,
-    partner,
-    dependents,
-    tenure,
-    phone,
-    multiple,
-    internet,
-    online_security,
-    online_backup,
-    device_protection,
-    tech_support,
-    streaming_tv,
-    streaming_movies,
-    contract,
-    paperless,
-    payment,
-    monthly,
-    total,
-    avg_monthly_spend
-])
+    data[:, [4,17,18,19]] = scaler.transform(
+        data[:, [4,17,18,19]]
+    )
 
-data[:, [4,17,18,19]] = scaler.transform(
-    data[:, [4,17,18,19]]
-)
+    pred = model.predict(data)
 
-pred = model.predict(data)
-
-if pred[0] == 1:
-    st.error("Pelanggan Berpotensi Churn")
-else:
-    st.success("Pelanggan Diprediksi Bertahan")
+    if pred[0] == 1:
+        st.error("Pelanggan Berpotensi Churn")
+    else:
+        st.success("Pelanggan Diprediksi Bertahan")
 
 
 st.write("Akurasi Model Random Forest: 79.77%")
