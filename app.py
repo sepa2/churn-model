@@ -9,31 +9,134 @@ st.title("Customer Churn Prediction")
 
 st.write("Prediksi Customer Churn menggunakan Random Forest")
 
-gender = st.selectbox("Gender", [0,1])
-senior = st.selectbox("Senior Citizen", [0,1])
-partner = st.selectbox("Partner", [0,1])
-dependents = st.selectbox("Dependents", [0,1])
+gender = st.selectbox("Gender", ["Female", "Male"])
+gender = 0 if gender == "Female" else 1
+
+senior = st.selectbox("Senior Citizen", ["No", "Yes"])
+senior = 0 if senior == "No" else 1
+
+partner = st.selectbox("Partner", ["No", "Yes"])
+partner = 0 if partner == "No" else 1
+
+dependents = st.selectbox("Dependents", ["No", "Yes"])
+dependents = 0 if dependents == "No" else 1
 
 tenure = st.number_input("Tenure", min_value=0)
 
-phone = st.selectbox("Phone Service", [0,1])
-multiple = st.selectbox("Multiple Lines", [0,1,2])
+phone = st.selectbox("Phone Service", ["No", "Yes"])
+phone = 0 if phone == "No" else 1
 
-internet = st.selectbox("Internet Service", [0,1,2])
+multiple = st.selectbox(
+    "Multiple Lines",
+    ["No", "No phone service", "Yes"]
+)
+multiple = {
+    "No": 0,
+    "No phone service": 1,
+    "Yes": 2
+}[multiple]
 
-online_security = st.selectbox("Online Security", [0,1,2])
-online_backup = st.selectbox("Online Backup", [0,1,2])
-device_protection = st.selectbox("Device Protection", [0,1,2])
-tech_support = st.selectbox("Tech Support", [0,1,2])
+internet = st.selectbox(
+    "Internet Service",
+    ["DSL", "Fiber optic", "No"]
+)
+internet = {
+    "DSL": 0,
+    "Fiber optic": 1,
+    "No": 2
+}[internet]
 
-streaming_tv = st.selectbox("Streaming TV", [0,1,2])
-streaming_movies = st.selectbox("Streaming Movies", [0,1,2])
+online_security = st.selectbox(
+    "Online Security",
+    ["No", "Yes", "No internet service"]
+)
+online_security = {
+    "No": 0,
+    "Yes": 1,
+    "No internet service": 2
+}[online_security]
 
-contract = st.selectbox("Contract", [0,1,2])
+online_backup = st.selectbox(
+    "Online Backup",
+    ["No", "Yes", "No internet service"]
+)
+online_backup = {
+    "No": 0,
+    "Yes": 1,
+    "No internet service": 2
+}[online_backup]
 
-paperless = st.selectbox("Paperless Billing", [0,1])
+device_protection = st.selectbox(
+    "Device Protection",
+    ["No", "Yes", "No internet service"]
+)
+device_protection = {
+    "No": 0,
+    "Yes": 1,
+    "No internet service": 2
+}[device_protection]
 
-payment = st.selectbox("Payment Method", [0,1,2,3])
+tech_support = st.selectbox(
+    "Tech Support",
+    ["No", "Yes", "No internet service"]
+)
+tech_support = {
+    "No": 0,
+    "Yes": 1,
+    "No internet service": 2
+}[tech_support]
+
+streaming_tv = st.selectbox(
+    "Streaming TV",
+    ["No", "Yes", "No internet service"]
+)
+streaming_tv = {
+    "No": 0,
+    "Yes": 1,
+    "No internet service": 2
+}[streaming_tv]
+
+streaming_movies = st.selectbox(
+    "Streaming Movies",
+    ["No", "Yes", "No internet service"]
+)
+streaming_movies = {
+    "No": 0,
+    "Yes": 1,
+    "No internet service": 2
+}[streaming_movies]
+
+contract = st.selectbox(
+    "Contract",
+    ["Month-to-month", "One year", "Two year"]
+)
+contract = {
+    "Month-to-month": 0,
+    "One year": 1,
+    "Two year": 2
+}[contract]
+
+paperless = st.selectbox(
+    "Paperless Billing",
+    ["No", "Yes"]
+)
+paperless = 0 if paperless == "No" else 1
+
+payment = st.selectbox(
+    "Payment Method",
+    [
+        "Bank transfer (automatic)",
+        "Credit card (automatic)",
+        "Electronic check",
+        "Mailed check"
+    ]
+)
+payment = {
+    "Bank transfer (automatic)": 0,
+    "Credit card (automatic)": 1,
+    "Electronic check": 2,
+    "Mailed check": 3
+}[payment]
 
 monthly = st.number_input("Monthly Charges", min_value=0.0)
 total = st.number_input("Total Charges", min_value=0.0)
@@ -75,6 +178,5 @@ if st.button("Prediksi"):
         st.error("Pelanggan Berpotensi Churn")
     else:
         st.success("Pelanggan Diprediksi Bertahan")
-
 
 st.write("Akurasi Model Random Forest: 79.77%")
